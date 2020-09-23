@@ -2,14 +2,16 @@ plugins {
 	id 'org.springframework.boot' version '2.3.2.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
+	id 'groovy'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 dependencies {
@@ -18,8 +20,31 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	implementation 'org.codehaus.groovy:groovy:3.0.5'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testCompile group: 'org.spockframework', name: 'spock-core', version: '1.3-groovy-2.5'
+	testImplementation 'io.cucumber:cucumber-java:6.7.0'
+	testImplementation 'io.cucumber:cucumber-junit:6.7.0'
 }
 
-test {
-	useJUnitPlatform()
+configurations {
+	cucumberRuntime {
+		extendsFrom testImplementation
+	}
 }
+
+task cucumber() {
+	dependsOn assemble, testClasses
+	doLast {
+		javaexec {
+			main = "io.cucumber.core.cli.Main"
+			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+			args = ['--plugin', 'json:build/reports/cucumber/report.json','--plugin','html:CucumberReports.html', '--glue', 'gradle.cucumber', 'src/test/resources/io/cucumber/skeleton']
+		}
+	}
+}
+
+//
+//test {
+//	useJUnitPlatform()
+//}
