@@ -15,11 +15,8 @@ class SpecCliente extends Specification {
     ClientRepository repository
     ObjectMapper mapper = new ObjectMapper()
 
-
     Client jon
     String jonJsonString
-
-
 
     def 'create a client with target number and benefict'(){
         given: 'Creamos un cliente con target number'
@@ -28,7 +25,7 @@ class SpecCliente extends Specification {
                 .standaloneSetup(controller)
                 .alwaysDo(MockMvcResultHandlers.print())
                 .build()
-        jon = new Client([id: 1, firstName: 'Jon', lastName: 'Snow','target_number':01234567,'benefict':true])
+        jon = new Client([id: 1, firstName: 'Jon', lastName: 'Snow','target_number':01234567,'benefict':true,account:'bs'])
         jonJsonString = mapper.writeValueAsString(jon)
 
 

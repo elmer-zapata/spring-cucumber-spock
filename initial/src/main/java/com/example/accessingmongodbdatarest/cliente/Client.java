@@ -14,31 +14,24 @@ public class Client {
     public String getTargetNumber() {
         return targetNumber;
     }
-
     public void setTargetNumber(String targetNumber) {
         this.targetNumber = targetNumber;
     }
-
     public String getBenefict() {
         return beneficiary;
     }
-
     public void setBenefict(String benefict) {
         this.beneficiary = benefict;
     }
-
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
