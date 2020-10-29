@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: apiexperiencia
+    
+server:
+ beneficioDescuentoURL: http://localhost:8081/beneficios/descuentos/clientePlanilla
